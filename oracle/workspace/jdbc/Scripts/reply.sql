@@ -1,0 +1,3 @@
+CREATE TABKE TBL_REPLY(
+	
+);
