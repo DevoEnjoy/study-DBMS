@@ -37,7 +37,7 @@ SELECT EY.*
 FROM EMPLOYEES EY JOIN EMP EP
 ON EY.DEPARTMENT_ID = EP.DEPTNO;
 
-SELECT LC.LID
+/*SELECT LC.LID
 FROM 
 (
 	SELECT D.DEPARTMENT_NAME , D.LOCATION_ID LID, E.*
@@ -49,7 +49,7 @@ JOIN (
 	FROM COUNTRIES C JOIN LOCATIONS L
 	ON L.COUNTRY_ID = C.COUNTRY_ID ;
 ) LC
-ON LC.LID = DE.LID;
+ON LC.LID = DE.LID;*/
 /* TEAM테이블에서 울산현대와 삼성블루윙즈의 경기날짜 경기장이름 출력 */
 
 /*득실차가 가장 많이 차이나는 경기의 경기장이름, 승리팀이름, 승리팀스코어, 패배팀이름, 패배팀스코어, 득실차를 조회*/
