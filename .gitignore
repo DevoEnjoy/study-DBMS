@@ -1,5 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/java,eclipse,dbeaver,windows,batch
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse,dbeaver,windows,batch
+/eclipseWorkSpace/*
+oracle/resource/
+.instance
+*test*.*
+
 ### npp ###
 *.session
 
