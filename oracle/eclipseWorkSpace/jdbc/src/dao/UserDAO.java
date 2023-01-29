@@ -17,6 +17,7 @@ public class UserDAO {
 	public ResultSet resultSet; //결과 테이블 객체
 	
 //	아이디 중복검사
+	// 중복이 없으면 true
 	public boolean checkId(String userIdentification) {
 		String query = "SELECT COUNT(USER_ID) FROM TBL_USER WHERE USER_IDENTIFICATION = ?";
 		boolean result = false;
