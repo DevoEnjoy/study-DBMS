@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import dao.BoardDAO;
 import dao.UserDAO;
+import domain.BoardDTO;
 import domain.BoardVO;
 import domain.UserVO;
 
@@ -34,6 +35,7 @@ public class Console {
 		UserDAO userDAO = new UserDAO();
 		BoardVO boardVO = null;
 		BoardDAO boardDAO = new BoardDAO();
+		BoardDTO boardDTO = null;
 		String[] arBeforeMenu = { "홈", "로그인", "회원가입", "창 닫기" }, arAfterMenu = { "홈", "로그아웃", "게시판", "창닫기" },
 				boardMenu = { "홈", "게시글 목록 보기", "글쓰기" };
 		String beforeMenuMsg = arToMsg(arBeforeMenu), afterMenuMsg = arToMsg(arAfterMenu),
@@ -50,7 +52,7 @@ public class Console {
 		String additionalInputMsg = "추가정보 입력 페이지입니다.\n입력을 원하지 않으면 Enter를 눌러 입력을 건너뛰세요.";
 		String insertErrMsg = "회원가입에 실패했습니다.\n메인메뉴로 돌아갑니다.", logoutMsg = "안전하게 로그아웃합니다.";
 		boolean didLogin = false;
-		int choice = 0;
+		int choice = 0, pageCount = 0, curPage = 1, pageSize = 10;
 
 //		IntStream.range(0, arBeforeMenu.length).map(i -> i + ". " + arBeforeMenu[i] + "\n").forEach(System.out::println);
 //		for (int i = 0; i < arBeforeMenu.length; i++) {
@@ -204,28 +206,46 @@ public class Console {
 								break;
 							} else if (choice == 1) { // 1. 게시글 목록 보기
 								while (true) {
+									boardDTO = new BoardDTO();
 									boardVO = new BoardVO();
+									pageCount = (boardDAO.selectAll().size() / 10)
+											+ (boardDAO.selectAll().size() % 10 == 0 ? 0 : 1);
 									System.out.println("게시글 목록");
-									boardDAO.selectAll().forEach(
-											v -> System.out.println(v.getBoardId() + " | " + v.getBoardTitle()));
-									System.out.println("q입력 시 게시판 메뉴로.\n열람할 게시글 번호 입력 : ");
+									System.out.println("=================================");
+									for (int i = (pageCount - 1) * pageSize; i < (boardDAO.selectAll().size() < ((pageCount) * pageSize)-1 ? boardDAO.selectAll().size() : ((pageCount) * pageSize)-1); i++) {
+										boardDTO = (BoardDTO)boardDAO.selectAll().toArray()[i];
+										System.out.println((boardDTO).getBoardId() + " | " + boardDTO.getBoardTitle());
+									}
+									for (int i = 0; i < pageCount; i++) {
+										
+										if(i+1 == pageCount) {
+											System.out.println(i);
+											break;
+										}
+										System.out.print(i + " | ");
+									}
+//									boardDAO.selectAll().forEach(
+//											v -> System.out.println(v.getBoardId() + " | " + v.getBoardTitle()));
+									System.out.println("=================================");
+									System.out.print(
+											"q입력 시 게시판 메뉴로,\np+게시판페이지번호 입력 시(예 p3 -> 3페이지) 해당 페이지로 이동\n열람할 게시글 번호 입력 : ");
 									temp = sc.nextLine();
-									if(temp.equals("q")) {
+									if (temp.equals("q")) {
 										System.out.println(backToMenuMsg);
 										break;
-									}else {
+									} else {
 										choice = Integer.parseInt(temp);
 										boardVO.setBoardId(Long.parseLong(choice + ""));
 										boardDAO.select(boardVO.getBoardId());
 									}
-									
+
 								}
-								
+
+								// // 댓글 서비스
+							} else if (choice == 2) {
+								// 2. 글쓰기
+
 							}
-
-							// // 댓글 서비스
-
-							// 2. 글쓰기
 
 						}
 					}

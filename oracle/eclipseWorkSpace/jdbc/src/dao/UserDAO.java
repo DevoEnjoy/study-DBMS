@@ -297,7 +297,7 @@ public class UserDAO {
 				+ " USER_PHONE, USER_NICKNAME, USER_EMAIL, USER_ADDRESS, USER_BIRTH, "
 				+ "USER_GENDER, USER_RECOMMENDER_ID "
 				+ "FROM TBL_USER WHERE USER_ID = ?";
-		UserVO userVO = null;
+		UserVO resultVO = null;
 		connection = DBConnecter.getConnection();
 		try {
 			preparedStatement = connection.prepareStatement(query);
@@ -305,18 +305,18 @@ public class UserDAO {
 			resultSet = preparedStatement.executeQuery();
 			
 			if(resultSet.next()) {
-				userVO = new UserVO();
-				userVO.setUserId(resultSet.getLong(1));
-				userVO.setUserIdentification(resultSet.getString(2));
-				userVO.setUserName(resultSet.getString(3));
-				userVO.setUserPassword(resultSet.getString(4));
-				userVO.setUserPhone(resultSet.getString(5));
-				userVO.setUserNickname(resultSet.getString(6));
-				userVO.setUserEmail(resultSet.getString(7));
-				userVO.setUserAddress(resultSet.getString(8));
-				userVO.setUserBirth(resultSet.getString(9));
-				userVO.setUserGender(resultSet.getString(10));
-				userVO.setUserRecommenderId(resultSet.getString(11));
+				resultVO = new UserVO();
+				resultVO.setUserId(resultSet.getLong(1));
+				resultVO.setUserIdentification(resultSet.getString(2));
+				resultVO.setUserName(resultSet.getString(3));
+				resultVO.setUserPassword(resultSet.getString(4));
+				resultVO.setUserPhone(resultSet.getString(5));
+				resultVO.setUserNickname(resultSet.getString(6));
+				resultVO.setUserEmail(resultSet.getString(7));
+				resultVO.setUserAddress(resultSet.getString(8));
+				resultVO.setUserBirth(resultSet.getString(9));
+				resultVO.setUserGender(resultSet.getString(10));
+				resultVO.setUserRecommenderId(resultSet.getString(11));
 			}
 			
 		} catch (SQLException e) {
@@ -340,7 +340,7 @@ public class UserDAO {
 			}
 		}
 		
-		return userVO;
+		return resultVO;
 	}
 	
 	public UserVO select(Long userId) {
