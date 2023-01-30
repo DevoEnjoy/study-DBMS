@@ -43,6 +43,7 @@ public class BoardDAO {
 			}
 		}
 	}
+	
 //	게시글 조회
 	public BoardDTO select(Long boardId) {
 		String query = "SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_REGISTER_DATE, "

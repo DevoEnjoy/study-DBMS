@@ -152,6 +152,7 @@ public class Console {
 						}
 						if (choice == 2) {
 							userDAO.insert(userVO);
+							System.out.println("회원가입이 완료되었습니다.");
 							System.out.println(backToMenuMsg);
 							break;
 						}
