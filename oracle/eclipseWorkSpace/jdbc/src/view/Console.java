@@ -10,6 +10,10 @@ import domain.UserVO;
 
 public class Console {
 
+	public static int paging(int boardAllCount, int boardCountPerPage) {
+		return (boardAllCount / boardCountPerPage) + (boardAllCount % boardCountPerPage == 0 ? 0 : 1);
+	}
+
 	public static String arToMsg(String[] arStr) {
 		String result = "";
 		for (int i = 0; i < arStr.length; i++) {
@@ -52,7 +56,7 @@ public class Console {
 		String additionalInputMsg = "추가정보 입력 페이지입니다.\n입력을 원하지 않으면 Enter를 눌러 입력을 건너뛰세요.";
 		String insertErrMsg = "회원가입에 실패했습니다.\n메인메뉴로 돌아갑니다.", logoutMsg = "안전하게 로그아웃합니다.";
 		boolean didLogin = false;
-		int choice = 0, pageCount = 0, curPage = 1, pageSize = 10;
+		int choice = 0, boardPages = 0, curPage = 1, boardCountPerPage = 10;
 
 //		IntStream.range(0, arBeforeMenu.length).map(i -> i + ". " + arBeforeMenu[i] + "\n").forEach(System.out::println);
 //		for (int i = 0; i < arBeforeMenu.length; i++) {
@@ -196,6 +200,7 @@ public class Console {
 						break;
 						// // 게시판 서비스
 					} else if (choice == 2) {
+						int currentPage = 0;
 						while (true) {
 							System.out.println("게시판");
 							System.out.println("=================================");
@@ -209,21 +214,29 @@ public class Console {
 								while (true) {
 									boardDTO = new BoardDTO();
 									boardVO = new BoardVO();
-									pageCount = (boardDAO.selectAll().size() / 10)
-											+ (boardDAO.selectAll().size() % 10 == 0 ? 0 : 1);
+									
+									//	게시판 아래 페이지 이동을 위한 페이징
+									boardPages = paging(boardDAO.selectAllOrderByDesc().size(), boardCountPerPage);
 									System.out.println("게시글 목록");
 									System.out.println("=================================");
-									for (int i = (pageCount - 1) * pageSize; i < (boardDAO.selectAll().size() < ((pageCount) * pageSize)-1 ? boardDAO.selectAll().size() : ((pageCount) * pageSize)-1); i++) {
-										boardDTO = (BoardDTO)boardDAO.selectAll().toArray()[i];
+
+									
+									int length = boardDAO.selectAllOrderByDesc().size() < ((boardPages) * boardCountPerPage)
+											? boardDAO.selectAllOrderByDesc().size()
+											: (boardPages * boardCountPerPage) - 1;
+
+									for (int i = (boardPages - 1) * boardCountPerPage; i < length; i++) {
+										boardDTO = (BoardDTO) boardDAO.selectAllOrderByDesc().toArray()[i];
 										System.out.println((boardDTO).getBoardId() + " | " + boardDTO.getBoardTitle());
 									}
-									for (int i = 0; i < pageCount; i++) {
-										
-										if(i+1 == pageCount) {
-											System.out.println(i);
+
+									for (int i = 0; i < boardPages; i++) {
+
+										if (i + 1 == boardPages) {
+											System.out.println(i + 1);
 											break;
 										}
-										System.out.print(i + " | ");
+										System.out.print(i + 1 + " | ");
 									}
 //									boardDAO.selectAll().forEach(
 //											v -> System.out.println(v.getBoardId() + " | " + v.getBoardTitle()));

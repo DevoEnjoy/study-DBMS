@@ -219,6 +219,68 @@ public class BoardDAO {
 		
 		return boards;
 	}
+	
+//	게시글 전체 조회
+	public ArrayList<BoardDTO> selectAllOrderByDesc(){
+		String query = "SELECT BOARD_ID, BOARD_TITLE, BOARD_CONTENT, BOARD_REGISTER_DATE, "
+				+ " BOARD_UPDATE_DATE, U.USER_ID, USER_IDENTIFICATION, USER_NAME, USER_PASSWORD, "
+				+ " USER_PHONE, USER_NICKNAME, USER_EMAIL, USER_ADDRESS, USER_BIRTH, USER_GENDER, "
+				+ " USER_RECOMMENDER_ID "
+				+ "FROM TBL_USER U JOIN TBL_BOARD B "
+				+ "ON U.USER_ID = B.USER_ID "
+				+ "ORDER BY BOARD_ID DESC";
+		
+		
+		BoardDTO boardDTO = null;
+		ArrayList<BoardDTO> boards = new ArrayList<BoardDTO>();
+		int index = 0;
+		connection = DBConnecter.getConnection();
+		try {
+			preparedStatement = connection.prepareStatement(query);
+			resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				index = 0;
+				boardDTO = new BoardDTO();
+				boardDTO.setBoardId(resultSet.getLong(++index));
+				boardDTO.setBoardTitle(resultSet.getString(++index));
+				boardDTO.setBoardContent(resultSet.getString(++index));
+				boardDTO.setBoardRegisterDate(resultSet.getString(++index));
+				boardDTO.setBoardUpdateDate(resultSet.getString(++index));
+				boardDTO.setUserId(resultSet.getLong(++index));
+				boardDTO.setUserIdentification(resultSet.getString(++index));
+				boardDTO.setUserName(resultSet.getString(++index));
+				boardDTO.setUserPassword(resultSet.getString(++index));
+				boardDTO.setUserPhone(resultSet.getString(++index));
+				boardDTO.setUserNickname(resultSet.getString(++index));
+				boardDTO.setUserEmail(resultSet.getString(++index));
+				boardDTO.setUserAddress(resultSet.getString(++index));
+				boardDTO.setUserBirth(resultSet.getString(++index));
+				boardDTO.setUserGender(resultSet.getString(++index));
+				boardDTO.setUserRecommenderId(resultSet.getString(++index));
+				boards.add(boardDTO);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(resultSet != null) {
+					resultSet.close();
+				}
+				if(preparedStatement != null) {
+					preparedStatement.close();
+				}
+				if(connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				throw new RuntimeException(e);
+			}
+		}
+		
+		return boards;
+	}
 }
 
 
