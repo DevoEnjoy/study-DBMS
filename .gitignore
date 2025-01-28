@@ -1,18 +1,5 @@
-# Created by https://www.toptal.com/developers/gitignore/api/java,eclipse,dbeaver,windows,batch
-# Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse,dbeaver,windows,batch
-/eclipseWorkSpace/*
-oracle/resource/
-.instance
-*test*.*
-
-### npp ###
-*.session
-
-### Batch ###
-# BatchFiles
-*.bat
-*.cmd
-*.btm
+# Created by https://www.toptal.com/developers/gitignore/api/java,eclipse,dbeaver,windows
+# Edit at https://www.toptal.com/developers/gitignore?templates=java,eclipse,dbeaver,windows
 
 ### DBeaver ###
 # ide config file
@@ -78,7 +65,7 @@ local.properties
 
 # Uncomment this line if you wish to ignore the project description file.
 # Typically, this file would be tracked if it contains build/dependency configurations:
-.project
+#.project
 
 ### Eclipse Patch ###
 # Spring Boot Tooling
@@ -136,4 +123,4 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
-# End of https://www.toptal.com/developers/gitignore/api/java,eclipse,dbeaver,windows,batch
+# End of https://www.toptal.com/developers/gitignore/api/java,eclipse,dbeaver,windows

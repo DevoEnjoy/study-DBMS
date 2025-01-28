@@ -1,0 +1,1 @@
+{"resources":{"Scripts/DDL.sql":{"default-schema":"HR","default-datasource":"oracle_thin-1876f48265f-2f24cf4ed31c44d"},"Scripts/DML.sql":{"default-datasource":"oracle_thin-1876f48265f-2f24cf4ed31c44d","default-schema":"HR"}}}

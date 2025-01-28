@@ -1,0 +1,77 @@
+{
+	"folders": {},
+	"connections": {
+		"mysql8-1876ed03e73-2d92bc8a9f7a303c": {
+			"provider": "mysql",
+			"driver": "mysql8",
+			"name": "localhost",
+			"save-password": true,
+			"configuration": {
+				"host": "localhost",
+				"port": "3306",
+				"url": "jdbc:mysql://localhost:3306/",
+				"configurationType": "MANUAL",
+				"home": "C:\\Program Files\\MySQL\\MySQL Server 8.0",
+				"type": "dev",
+				"properties": {
+					"connectTimeout": "20000",
+					"rewriteBatchedStatements": "true",
+					"enabledTLSProtocols": "TLSv1,TLSv1.1,TLSv1.2",
+					"allowPublicKeyRetrieval": "TRUE"
+				},
+				"auth-model": "native",
+				"handlers": {
+					"ssh_tunnel": {
+						"type": "TUNNEL",
+						"enabled": true,
+						"save-password": true,
+						"properties": {
+							"host": "43.200.171.247",
+							"port": 22,
+							"authType": "PUBLIC_KEY",
+							"keyPath": "T:\\gb_0900\\Q_AWS\\resource\\My-Web-Server.ppk",
+							"implementation": "sshj",
+							"localHost": "",
+							"remoteHost": ""
+						}
+					}
+				}
+			},
+			"custom-properties": {
+				"database.meta.separate.connection": "NEVER"
+			}
+		}
+	},
+	"network-profiles": {
+		"My-Web-Server": {
+			"name": "My-Web-Server",
+			"handlers": {
+				"ssh_tunnel": {
+					"type": "TUNNEL",
+					"enabled": true,
+					"save-password": true,
+					"properties": {
+						"host": "43.200.171.247",
+						"port": 22,
+						"authType": "PUBLIC_KEY",
+						"keyPath": "T:\\gb_0900\\Q_AWS\\resource\\My-Web-Server.pem",
+						"implementation": "sshj",
+						"localHost": "",
+						"remoteHost": ""
+					}
+				}
+			}
+		}
+	},
+	"connection-types": {
+		"dev": {
+			"name": "Development",
+			"color": "255,255,255",
+			"description": "Regular development database",
+			"auto-commit": true,
+			"confirm-execute": false,
+			"confirm-data-change": false,
+			"auto-close-transactions": false
+		}
+	}
+}
